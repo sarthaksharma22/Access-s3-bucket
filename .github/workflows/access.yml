@@ -1,0 +1,41 @@
+name: Generate and Upload Files to S3 with Presigned Cookies
+
+on:
+  push:
+    branches:
+      - main  # You can change this to your target branch
+
+jobs:
+  generate-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Node.js (or any environment depending on your tech stack)
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      # Step 3: Install dependencies (if using Node.js)
+      - name: Install dependencies
+        run: |
+          npm install
+
+      # Step 4: Generate HTML, CSS, JS, Images (adjust the build command accordingly)
+      - name: Generate HTML/CSS/Assets
+        run: |
+          npm run build  # Replace with the command that generates your files
+
+      # Step 5: Configure AWS CLI with GitHub secrets
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2  # Replace with your region
+
+      # Step 6: Upload all generated files to the S3 'files/' folder
