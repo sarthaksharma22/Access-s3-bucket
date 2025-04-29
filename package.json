@@ -1,0 +1,11 @@
+{
+    "name": "s3-static-site",
+    "version": "1.0.0",
+    "description": "Generate static files (HTML, CSS, JS) to upload to S3",
+    "scripts": {
+      "build": "mkdir -p build && echo '<!DOCTYPE html><html><head><title>Test Page</title></head><body><h1>Hello World!</h1></body></html>' > build/index.html && echo 'body { font-family: Arial; }' > build/style.css"
+    },
+    "author": "Your Name",
+    "license": "MIT"
+  }
+  
